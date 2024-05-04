@@ -54,7 +54,7 @@ def evaluate(image_processor, model, dataset, num_images, save, save_dir='.'):
             if len(labels_list)==num_images:
                 break
         print('Broken images, which are not included: %d' % (len(broken_ids)))
-        print(f'Accuracy on the {len(labels_list)} validation images: {(100 * correct / total)}')
+        print(f'Accuracy on the {len(labels_list)} images: {(100 * correct / total)}')
         print(f'number of images used {total}') 
 
         logits_np = torch.cat(logits_list).numpy()

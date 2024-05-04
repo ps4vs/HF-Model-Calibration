@@ -53,10 +53,11 @@ After running the script, you will get the following outputs:
 - Confidence histogram plot
 - Reliability diagram plot
 
+### Results of ViT on 2000 images from Imagenet1K
+![Results](./image.png)
+![Confidence Histogram](./google/vit-base-patch16-224_imagenet-1k/conf_histogram_test.png)
+![Reliability Diagram](./google/vit-base-patch16-224_imagenet-1k/rel_diagram_test.png)
 
 ### Contributors
-- [Your Name]
-- [Your Email]
-
-### License
-This project is licensed under the [MIT License](LICENSE).
+- siv
+- [subhashpadala18@gmail.com]
