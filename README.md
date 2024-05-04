@@ -53,12 +53,12 @@ After running the script, you will get the following outputs:
 - Confidence histogram plot
 - Reliability diagram plot
 
-### Results of ViT on 2000 images from Imagenet1K
+### Results of ConvNext on 2000 images from Imagenet1K
 ![Results](./facebook/convnext-tiny-224_imagenet-1k/image.png)
 ![Confidence Histogram](./facebook/convnext-tiny-224_imagenet-1k/conf_histogram_test.png)
 ![Reliability Diagram](./facebook/convnext-tiny-224_imagenet-1k/rel_diagram_test.png)
 
-### Results of ConvNext on 2000 images from Imagenet1K
+### Results of ViT on 2000 images from Imagenet1K
 ![Results](./google/vit-base-patch16-224_imagenet-1k/image.png)
 ![Confidence Histogram](./google/vit-base-patch16-224_imagenet-1k/conf_histogram_test.png)
 ![Reliability Diagram](./google/vit-base-patch16-224_imagenet-1k/rel_diagram_test.png)
