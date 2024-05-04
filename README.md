@@ -1,4 +1,4 @@
-## Model Calibration README
+## Model Calibration
 
 ### Introduction
 This repository contains code for calibrating Hugging Face models on a given dataset. The calibration process involves calculating metrics such as expected calibration error and static calibration error, as well as plotting confidence histograms and reliability diagrams.
