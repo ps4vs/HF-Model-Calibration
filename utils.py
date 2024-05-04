@@ -13,12 +13,13 @@ def prepare_model(ckpt_name):
     model = AutoModelForImageClassification.from_pretrained(ckpt_name)
     return image_processor, model
 
-def prepare_dataset(dataset_loc, split):
+def prepare_dataset(dataset_loc, split, num_images):
     dataset = load_dataset(dataset_loc, split=split, streaming=True, trust_remote_code=True).with_format('torch')
-    newdataset = dataset.shuffle(seed=42, buffer_size=11_500).take(11500)
+    count = min(50000, num_images*2)
+    newdataset = dataset.shuffle(seed=42, buffer_size=count).take(count)
     return newdataset
 
-def evaluate(image_processor, model, dataset):
+def evaluate(image_processor, model, dataset, num_images, save):
     # evaluate, generate_plots.
     correct = 0
     total = 0
@@ -49,7 +50,7 @@ def evaluate(image_processor, model, dataset):
 
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
-            if len(labels_list)==1000:
+            if len(labels_list)==num_images:
                 break
         print('Broken images, which are not included: %d' % (len(broken_ids)))
         print('Accuracy on the 10,000 validation images: %d %%' % (100 * correct / total))
@@ -57,10 +58,12 @@ def evaluate(image_processor, model, dataset):
 
         logits_np = torch.cat(logits_list).numpy()
         labels_np = torch.cat(labels_list).numpy()
+        if save:
+            logits_np.save
 
     return logits_np, labels_np
 
-def calibrate_and_plot(logits_np, labels_np):
+def calibrate_and_plot(logits_np, labels_np, save):
     ece_criterion = metrics.ECELoss()
     sce_criterion = metrics.SCELoss()
 
@@ -69,10 +72,12 @@ def calibrate_and_plot(logits_np, labels_np):
 
     conf_hist = visualization.ConfidenceHistogram()
     plt_test = conf_hist.plot(logits_np,labels_np,title="Confidence Histogram")
-    plt_test.savefig('conf_histogram_test.png',bbox_inches='tight')
+    if save:
+        plt_test.savefig('conf_histogram_test.png',bbox_inches='tight')
     plt_test.show()
 
     rel_diagram = visualization.ReliabilityDiagram()
     plt_test_2 = rel_diagram.plot(logits_np,labels_np,title="Reliability Diagram")
-    plt_test_2.savefig('rel_diagram_test.png',bbox_inches='tight')
+    if save:
+        plt_test_2.savefig('rel_diagram_test.png',bbox_inches='tight')
     plt_test_2.show()

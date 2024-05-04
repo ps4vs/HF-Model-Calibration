@@ -44,6 +44,7 @@ To run the code in this repository, you need to have the following dependencies 
 - `--split`: Specify which dataset split to load (default: 'validation').
 - `--wandb`: Flag to enable logging with WandB (optional).
 - `--save`: Flag to save the generated plots and calibration metrics (optional).
+- `--num_image`: Specify number of images to be considered for calibration (default: 2000).
 
 ### Output
 After running the script, you will get the following outputs:
