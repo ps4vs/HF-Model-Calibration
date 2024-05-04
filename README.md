@@ -22,8 +22,7 @@ To run the code in this repository, you need to have the following dependencies 
 2. **Create and Activate Virtual Environment:**
    ```
    python -m venv venv
-   source venv/bin/activate   # For Linux/macOS
-   .\venv\Scripts\activate    # For Windows
+   source venv/bin/activate
    ```
 
 3. **Install Dependencies:**
@@ -39,16 +38,17 @@ To run the code in this repository, you need to have the following dependencies 
    ```
 
 ### Arguments
-- `--models`: Specify the Hugging Face model checkpoint locations (default: ['google/vit-base-patch16-224']).
-  - This argument allows you to specify one or more Hugging Face model checkpoint locations. You can provide a list of model strings separated by spaces. If not provided, the default model checkpoint location is 'google/vit-base-patch16-224'. Example usage:
-    ```
-    --models model1 model2 model3
-    ```
+- `--models`: Specify one or more Hugging Face model checkpoint locations. You can provide a list of model strings separated by spaces. If not provided, the default model checkpoint location is 'google/vit-base-patch16-224' 
+
+    Example usage: `--models model1 model2 model3`
+
     The specified models will be evaluated, and the calibration metrics will be calculated for each model separately.
+
 - `--dataset`: Specify the Hugging Face dataset location (default: 'imagenet-1k').
 - `--split`: Specify which dataset split to load (default: 'validation').
 - `--wandb`: Flag to enable logging with WandB (optional).
-- `--save`: Flag to save the generated plots and calibration metrics (optional). Results will be saved to ./{model}_{dataset}/
+- `--save`: Flag to save the generated plots and calibration metrics (optional). 
+            Results will be saved to `./{model}_{dataset}/`
 - `--num_image`: Specify number of images to be considered for calibration (default: 2000).
 
 ### Output
@@ -69,4 +69,4 @@ After running the script, you will get the following outputs:
 ![Reliability Diagram](./google/vit-base-patch16-224_imagenet-1k/rel_diagram_test.png)
 
 ### Contributors
-- siv [subhashpadala18@gmail.com]
+- sivav [subhashpadala18@gmail.com]
