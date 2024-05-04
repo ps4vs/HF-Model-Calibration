@@ -64,5 +64,4 @@ After running the script, you will get the following outputs:
 ![Reliability Diagram](./google/vit-base-patch16-224_imagenet-1k/rel_diagram_test.png)
 
 ### Contributors
-- siv
-- [subhashpadala18@gmail.com]
+- siv [subhashpadala18@gmail.com]
