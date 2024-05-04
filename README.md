@@ -35,11 +35,16 @@ To run the code in this repository, you need to have the following dependencies 
    ```
    python calibrate_model.py
    or 
-   python calibrate_model.py --model <model_name> --dataset <dataset_name> --split <split_name> --num_images <num>[--wandb] [--save]
+   python calibrate_model.py --models <model_1_name> <model_2_name> --dataset <dataset_name> --split <split_name> --num_images <num>[--wandb] [--save]
    ```
 
 ### Arguments
-- `--model`: Specify the Hugging Face model checkpoint location (default: 'google/vit-base-patch16-224').
+- `--models`: Specify the Hugging Face model checkpoint locations (default: ['google/vit-base-patch16-224']).
+  - This argument allows you to specify one or more Hugging Face model checkpoint locations. You can provide a list of model strings separated by spaces. If not provided, the default model checkpoint location is 'google/vit-base-patch16-224'. Example usage:
+    ```
+    --models model1 model2 model3
+    ```
+    The specified models will be evaluated, and the calibration metrics will be calculated for each model separately.
 - `--dataset`: Specify the Hugging Face dataset location (default: 'imagenet-1k').
 - `--split`: Specify which dataset split to load (default: 'validation').
 - `--wandb`: Flag to enable logging with WandB (optional).
