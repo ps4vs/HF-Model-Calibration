@@ -15,8 +15,8 @@ To run the code in this repository, you need to have the following dependencies 
 ### Usage
 1. **Clone the Repository:**
    ```
-   git clone <repository_url>
-   cd <repository_name>
+   git clone https://github.com/ps4vs/HF-Model-Calibration.git
+   cd HF-Model-Calibration
    ```
 
 2. **Create and Activate Virtual Environment:**
@@ -35,7 +35,7 @@ To run the code in this repository, you need to have the following dependencies 
    ```
    python calibrate_model.py
    or 
-   python calibrate_model.py --model <model_name> --dataset <dataset_name> --split <split_name> [--wandb] [--save]
+   python calibrate_model.py --model <model_name> --dataset <dataset_name> --split <split_name> --num_images <num>[--wandb] [--save]
    ```
 
 ### Arguments
@@ -43,7 +43,7 @@ To run the code in this repository, you need to have the following dependencies 
 - `--dataset`: Specify the Hugging Face dataset location (default: 'imagenet-1k').
 - `--split`: Specify which dataset split to load (default: 'validation').
 - `--wandb`: Flag to enable logging with WandB (optional).
-- `--save`: Flag to save the generated plots and calibration metrics (optional).
+- `--save`: Flag to save the generated plots and calibration metrics (optional). Results will be saved to ./{model}_{dataset}/
 - `--num_image`: Specify number of images to be considered for calibration (default: 2000).
 
 ### Output
@@ -52,6 +52,7 @@ After running the script, you will get the following outputs:
 - Static calibration error
 - Confidence histogram plot
 - Reliability diagram plot
+
 
 ### Contributors
 - [Your Name]

@@ -1,7 +1,8 @@
-import tqdm
+import numpy
 import torch
 import metrics
 import visualization
+from tqdm import tqdm
 import torch.nn.functional as F
 from datasets import load_dataset
 from transformers import AutoImageProcessor, AutoModelForImageClassification
@@ -19,7 +20,7 @@ def prepare_dataset(dataset_loc, split, num_images):
     newdataset = dataset.shuffle(seed=42, buffer_size=count).take(count)
     return newdataset
 
-def evaluate(image_processor, model, dataset, num_images, save):
+def evaluate(image_processor, model, dataset, num_images, save, save_dir='.'):
     # evaluate, generate_plots.
     correct = 0
     total = 0
@@ -59,25 +60,29 @@ def evaluate(image_processor, model, dataset, num_images, save):
         logits_np = torch.cat(logits_list).numpy()
         labels_np = torch.cat(labels_list).numpy()
         if save:
-            logits_np.save
-
+            numpy.save(save_dir + '/logits_np.npy', logits_np)
+            numpy.save(save_dir + '/labels_np.npy', labels_np)
     return logits_np, labels_np
 
-def calibrate_and_plot(logits_np, labels_np, save):
+def calibrate_and_plot(logits_np, labels_np, save, save_dir='.'):
     ece_criterion = metrics.ECELoss()
     sce_criterion = metrics.SCELoss()
 
-    print('ECE: %f' % (ece_criterion.loss(logits_np,labels_np, 15)))
-    print('SCE: %f' % (sce_criterion.loss(logits_np,labels_np, 15)))
-
+    ece = (ece_criterion.loss(logits_np,labels_np, 15))
+    sce = (sce_criterion.loss(logits_np,labels_np, 15))
+    print('ECE: %f' % ece)
+    print('SCE: %f' % sce)
+    if save:
+        numpy.save(save_dir + '/ece.npy', ece)
+        numpy.save(save_dir + '/sce.npy', sce)
     conf_hist = visualization.ConfidenceHistogram()
     plt_test = conf_hist.plot(logits_np,labels_np,title="Confidence Histogram")
     if save:
-        plt_test.savefig('conf_histogram_test.png',bbox_inches='tight')
+        plt_test.savefig(save_dir + '/conf_histogram_test.png',bbox_inches='tight')
     plt_test.show()
 
     rel_diagram = visualization.ReliabilityDiagram()
     plt_test_2 = rel_diagram.plot(logits_np,labels_np,title="Reliability Diagram")
     if save:
-        plt_test_2.savefig('rel_diagram_test.png',bbox_inches='tight')
+        plt_test_2.savefig(save_dir + '/rel_diagram_test.png',bbox_inches='tight')
     plt_test_2.show()
